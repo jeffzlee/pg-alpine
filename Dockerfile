@@ -1,7 +1,7 @@
 FROM alpine
 
-RUN apk update && \
-    apk add curl  postgresql-client postgresql postgresql-contrib 
+#RUN apk update && \
+#    apk add curl  postgresql-client postgresql postgresql-contrib 
     # && \
    # mkdir /docker-entrypoint-initdb.d && \
   #  curl -o /usr/local/bin/gosu -sSL "https://github.com/tianon/gosu/releases/download/1.2/gosu-amd64" && \
@@ -11,7 +11,7 @@ RUN apk update && \
  
 ENV LANG en_US.utf8
 ENV PGDATA /var/lib/postgresql/data
-VOLUME /var/lib/postgresql/data
+# VOLUME /var/lib/postgresql/data
 
 #COPY docker-entrypoint.sh /
 
