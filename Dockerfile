@@ -8,7 +8,7 @@ RUN echo "@edge http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/reposito
     chmod +x /usr/local/bin/gosu && \
     apk del curl && \
     rm -rf /var/cache/apk/*
-
+ 
 ENV LANG en_US.utf8
 ENV PGDATA /var/lib/postgresql/data
 VOLUME /var/lib/postgresql/data
