@@ -14,8 +14,8 @@ VOLUME /var/lib/postgresql/data
 
 COPY docker-entrypoint.sh /
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
-
+# ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["/bin/sh"]
 EXPOSE 5432
-CMD ["postgres"]
+# CMD ["postgres"]
 
