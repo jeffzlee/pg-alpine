@@ -16,7 +16,8 @@ FROM alpine:edge
 #COPY docker-entrypoint.sh /
 
 # ENTRYPOINT ["/docker-entrypoint.sh"]
-ENTRYPOINT ["/bin/sh"]
+# ENTRYPOINT ["/bin/sh"]
 #EXPOSE 5432
 # CMD ["postgres"]
+CMD ["/bin/sh"]
 
