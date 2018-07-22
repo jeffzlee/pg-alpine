@@ -16,7 +16,7 @@ FROM alpine:edge
 #COPY docker-entrypoint.sh /
 
 # ENTRYPOINT ["/docker-entrypoint.sh"]
-ENTRYPOINT ["bash"]
+ENTRYPOINT ["ping baidu.com"]
 #EXPOSE 5432
 # CMD ["postgres"]
 
