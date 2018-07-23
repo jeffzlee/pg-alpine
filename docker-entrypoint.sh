@@ -4,7 +4,7 @@ chown -R postgres "$PGDATA"
 if [ -z "$(ls -A "$PGDATA")" ]; then
     gosu postgres initdb
     sed -ri "s/^#(listen_addresses\s*=\s*)\S+/\1'*'/" "$PGDATA"/postgresql.conf
-
+    echo "postgresql.conf was changed"
     : ${POSTGRES_USER:="postgres"}
     : ${POSTGRES_DB:=$POSTGRES_USER}
 
