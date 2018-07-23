@@ -1,3 +1,4 @@
 #!/bin/sh
-chown -R postgres "$PGDATA"
+# chown -R postgres "$PGDATA"
 echo "starting"
+ls
