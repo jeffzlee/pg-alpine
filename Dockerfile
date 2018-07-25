@@ -26,6 +26,7 @@ RUN buildDeps=' ' HOME='/root' \
 # 036A9C25BF357DD4 - Tianon Gravi <tianon@tianon.xyz> 
 # http://pgp.mit.edu/pks/lookup?op=vindex&search=0x036A9C25BF357DD4 
 
+COPY docker-entrypoint.sh  /
 ENTRYPOINT ["/docker-entrypoint.sh"]
 EXPOSE 5432
 CMD [""]
