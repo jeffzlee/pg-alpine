@@ -1,7 +1,7 @@
 FROM alpine:edge
 MAINTAINER @JeffZLee https://github.com/jeffzlee
-ADD . /code
-WORKDIR /code
+#ADD . /code
+#WORKDIR /code
 COPY docker-entrypoint.sh  /
 RUN apk update && \
 addgroup postgres postgres
