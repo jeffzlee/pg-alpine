@@ -27,6 +27,7 @@ RUN buildDeps=' ' HOME='/root' \
 	&& rm -f gosu-$GOSU_ARCHITECTURE.asc \
 	&& mv gosu-$GOSU_ARCHITECTURE /usr/bin/gosu \
 	&& chmod +x /usr/bin/gosu \
+	&& gosu nobody true \
 	#&& apk del --purge $buildDeps \
 	#&& rm -rf /root/.gnupg \
 	#&& rm -rf /var/cache/apk/* \
