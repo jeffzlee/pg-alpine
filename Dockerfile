@@ -23,6 +23,13 @@ RUN buildDeps=' ' HOME='/root' \
 	&& echo "trusted-key $GOSU_DOWNLOAD_KEY" >> /root/.gnupg/gpg.conf \
 	&& curl -sSL "$GOSU_DOWNLOAD_URL" > gosu-$GOSU_ARCHITECTURE \
 	&& curl -sSL "$GOSU_DOWNLOAD_SIG" > gosu-$GOSU_ARCHITECTURE.asc \
+	&& gpg --verify gosu-$GOSU_ARCHITECTURE.asc \
+	&& rm -f gosu-$GOSU_ARCHITECTURE.asc \
+	&& mv gosu-$GOSU_ARCHITECTURE /usr/bin/gosu \
+	&& chmod +x /usr/bin/gosu \
+	#&& apk del --purge $buildDeps \
+	#&& rm -rf /root/.gnupg \
+	#&& rm -rf /var/cache/apk/* \
 	;
 # 036A9C25BF357DD4 - Tianon Gravi <tianon@tianon.xyz> 
 # http://pgp.mit.edu/pks/lookup?op=vindex&search=0x036A9C25BF357DD4 
