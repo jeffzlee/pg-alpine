@@ -1,37 +1,29 @@
 FROM alpine:edge
 MAINTAINER @JeffZLee https://github.com/jeffzlee
-#ADD . /code
-#WORKDIR /code
-COPY docker-entrypoint.sh  /
+ADD . /code
+WORKDIR /code
+COPY /code/docker-entrypoint.sh  /
 RUN chmod -R 777 /docker-entrypoint.sh
+
 RUN apk update && \
 addgroup postgres postgres
 
 RUN apk update && \
-apk add curl wget dpkg gnupg
+apk add wget dpkg gnupg
 
-ENV GOSU_VERSION="1.7" \ 
-GOSU_ARCHITECTURE="amd64" 
-ENV GOSU_DOWNLOAD_URL="https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$GOSU_ARCHITECTURE" \ 
-GOSU_DOWNLOAD_SIG="https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$GOSU_ARCHITECTURE.asc" \ 
-GOSU_DOWNLOAD_KEY="0x036A9C25BF357DD4"
-RUN buildDeps=' ' HOME='/root' \
-	&& set -x \
-	&& apk add --update $buildDeps \
-	&& gpg-agent --daemon \
-	&& gpg --keyserver pgp.mit.edu --recv-keys $GOSU_DOWNLOAD_KEY \
-	&& echo "trusted-key $GOSU_DOWNLOAD_KEY" >> /root/.gnupg/gpg.conf \
-	&& curl -sSL "$GOSU_DOWNLOAD_URL" > gosu-$GOSU_ARCHITECTURE \
-	&& curl -sSL "$GOSU_DOWNLOAD_SIG" > gosu-$GOSU_ARCHITECTURE.asc \
-	&& gpg --verify gosu-$GOSU_ARCHITECTURE.asc \
-	&& rm -f gosu-$GOSU_ARCHITECTURE.asc \
-	&& mv gosu-$GOSU_ARCHITECTURE /usr/bin/gosu \
-	&& chmod +x /usr/bin/gosu \
-	&& gosu nobody true \
-	#&& apk del --purge $buildDeps \
-	#&& rm -rf /root/.gnupg \
-	#&& rm -rf /var/cache/apk/* \
-	;
+ENV GOSU_VERSION 1.8
+RUN set -x \
+    && wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture)" \
+    && wget -O /usr/local/bin/gosu.asc "https://github.com/tianon/gosu/releases/download/$GOSU_VERSION/gosu-$(dpkg --print-architecture).asc" \
+    && export GNUPGHOME="$(mktemp -d)" \
+    && gpg --keyserver ha.pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
+    && gpg --batch --verify /usr/local/bin/gosu.asc /usr/local/bin/gosu \
+    && rm -r "$GNUPGHOME" /usr/local/bin/gosu.asc \
+    && chmod +x /usr/local/bin/gosu \
+    && gosu nobody true \
+    ;
+
+
 # 036A9C25BF357DD4 - Tianon Gravi <tianon@tianon.xyz> 
 # http://pgp.mit.edu/pks/lookup?op=vindex&search=0x036A9C25BF357DD4 
 
